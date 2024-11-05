@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #d9f3f2;
+            overflow-x: hidden;
+        }
+        .nav {
+            background-color: #003366;
+            width: 100%;
+            height: 40px;
+            position: fixed;
+            top: 240px;
+            left: 0;
+            z-index: 100;
+            overflow-x: auto;
+        }
+        .nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            white-space: nowrap;
+        }
+        .nav ul li {
+            display: inline-block;
+            line-height: 40px;
+            margin: 0 10px;
+        }
+        .nav ul li a {
+            color: #00FF00;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .nav ul li a:hover {
+            color: #ffffff;
+        }
+        .header {
+            background-color: #003366;
+            color: white;
+            padding: 20px 0 0 0;
+            text-align: center;
+            width: 100%;
+            height: 200px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 0;
+        }
+        .header-top {
+            margin-bottom: 15px;
+        }
+        .header img {
+            height: 100px;
+            width: 100px;
+            margin-bottom: 10px;
+        }
+        .header h1 {
+            margin: 10px 0;
+            color: #87CEEB;
+            font-family: 'Arial Black', Arial, sans-serif;
+        }
+        .form-container {
+            margin-top: 280px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #d9f3f2;
+        }
+
+        .form-box {
+            width: 80%;
+            padding: 30px 60px;
+            border: 1px solid #e0e0e0;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .form-box::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -15px;
+            width: 100%;
+            height: 1px;
+            background-color: #009999;
+        }
+
+        .form-title {
+            color: #009999;
+            font-family: Arial, sans-serif;
+            font-size: 22px;
+            font-weight: normal;
+            text-align: center;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            position: relative;
+            text-shadow: none;
+        }
+
+        /* Line style */
+        .form-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background-color: #009999;
+        }
+
+        .form-group {
+            width: 50%;
+            margin: 0 auto 15px;
+        }
+
+        .form-group label {
+            font-family: Arial, sans-serif;
+            font-weight: normal;
+            display: block;
+            margin-bottom: 5px;
+            color: #000000;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+            font-weight: normal;
+        }
+
+        /* Style for placeholder text */
+        .form-group input::placeholder {
+            color: #888888;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            font-weight: normal;
+        }
+
+        /* Special style for date input */
+        .form-group input[type="date"]::-webkit-datetime-edit {
+            color: #888888;
+            font-family: Arial, sans-serif;
+            font-weight: normal;
+        }
+
+        .form-group input:focus {
+            font-weight: normal;
+            font-family: Arial, sans-serif;
+        }
+
+        .separator {
+            width: 100%;
+            text-align: center;
+            margin: 15px 0;
+            font-weight: bold;
+            color: #003366;
+            font-size: 14px;
+        }
+
+        .captcha-container {
+            width: 50%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .captcha-image {
+            border: 1px solid #ddd;
+            padding: 10px;
+            background: #fff;
+            border-radius: 5px;
+        }
+
+        .captcha-text {
+            font-family: Arial, sans-serif;
+            font-weight: normal;
+            font-size: 14px;
+            color: #000000;
+        }
+
+        /* Style for the captcha input field */
+        .captcha-container input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+            font-weight: normal;
+            border-radius: 5px;
+        }
+
+        .submit-btn {
+            width: 12.5%;
+            padding: 8px 15px;
+            background-color: #C1424B;
+            color: white;
+            border: none;
+            font-family: 'Arial Black', Arial, sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            float: left;
+            margin-left: 60px;
+            margin-top: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #00A7A7;
+        }
+
+        .button-container {
+            display: none;
+        }
+
+        .footer {
+            background-color: #00A7A7;
+            padding: 35px 0;
+            text-align: center;
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-content {
+            padding: 0 20px;
+            color: #000000;
+        }
+
+        .form-group label .required {
+            color: #FF0000;
+            font-weight: bold;
+        }
+
+        .required {
+            color: #FF0000;
+            font-weight: bold;
+        }
+
+        /* Clear the float if needed */
+        form::after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        /* New top header style */
+        .top-header {
+            background-color: #00A7A7;
+            width: 100%;
+            height: 50px;
+            position: relative;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 58px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 30px;
+            color: #FFFFFF;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            align-items: center;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-icon {
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            color: #FFFFFF;
+        }
+
+        .contact-info a {
+            color: #FFFFFF;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+            color: #FFFFFF;
+        }
+
+        /* Container for main content */
+        .main-container {
+            width: 100%;
+            max-width: 1920px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Navigation styling */
+        .nav {
+            width: 100%;
+            padding: 15px 0;
+            background-color: #003366;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav ul {
+            list-style: none;
+            margin: 0 auto;
+            padding: 0;
+            display: flex;
+            justify-content: flex-start;
+            width: 95%;
+            flex-wrap: nowrap;
+            gap: 20px;
+        }
+
+        .nav ul li {
+            margin-right: 30px;
+        }
+
+        .nav ul li:last-child {
+            margin-right: 0;
+        }
+
+        .nav ul li a {
+            color: #00FF00;
+            text-decoration: none;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            font-weight: normal;
+            text-transform: uppercase;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+            letter-spacing: -0.2px;
+        }
+
+        .nav ul li a:hover {
+            color: #87CEEB;
+        }
+
+        .nav ul li.active a {
+            color: #87CEEB;
+        }
+
+        .blue-container {
+            background-color: #007bff;  /* Blue color */
+            width: 100%;
+            padding: 20px;
+            margin-bottom: 30px;  /* Creates space between blue container and white box */
+        }
+
+        .white-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* Optional: adds subtle shadow */
+            margin-top: 20px;  /* Additional space from top */
+        }
+
+        /* If you're having z-index issues, you can add: */
+        .blue-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .white-box {
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-item .fa-phone {
+            transform: scaleX(-1);
+        }
+
+        .captcha-image img {
+            width: 100px;  /* Changed from 150px to 100px */
+            height: auto;  /* Maintains aspect ratio */
+        }
+
+        /* Add these responsive styles */
+        @media screen and (max-width: 768px) {
+            /* Header adjustments */
+            .header {
+                height: auto;
+                padding: 10px 0;
+            }
+            
+            .header img {
+                height: 60px;
+                width: 60px;
+            }
+            
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            /* Navigation adjustments */
+            .nav {
+                position: relative;
+                top: 0;
+                height: auto;
+                padding: 5px 0;
+            }
+            
+            .nav ul {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .nav ul li {
+                margin: 5px 0;
+                display: block;
+                text-align: left;
+            }
+            
+            /* Form adjustments */
+            .form-container {
+                margin-top: 20px;
+                padding: 10px;
+            }
+            
+            .form-box {
+                width: 90%;
+                padding: 15px;
+            }
+            
+            .form-group {
+                width: 100%;
+            }
+            
+            .submit-btn {
+                width: 100%;
+                margin: 10px 0;
+                float: none;
+            }
+            
+            /* Top header adjustments */
+            .top-header {
+                padding-left: 10px;
+                height: auto;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px;
+            }
+            
+            /* Captcha container adjustments */
+            .captcha-container {
+                width: 100%;
+                flex-direction: column;
+            }
+            
+            .captcha-image {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .captcha-image img {
+                width: 150px;
+            }
+        }
+
+        /* Additional adjustments for very small screens */
+        @media screen and (max-width: 480px) {
+            .header h1 {
+                font-size: 18px;
+            }
+            
+            .form-title {
+                font-size: 18px;
+            }
+            
+            .form-box {
+                padding: 15px;
+            }
+            
+            .footer-content {
+                font-size: 12px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="top-header">
+        <div class="contact-info">
+            <div class="contact-item">
+                <span class="contact-icon">
+                    <i class="fas fa-phone"></i>
+                </span>
+                <span>011-23752769 - 75 Ext.226</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </span>
+                <a href="mailto:bus-pass@dtc.nic.in">bus-pass@dtc.nic.in</a>
+            </div>
+        </div>
+    </div>
+    <div class="main-container">
+        <div class="header">
+            <div class="header-top">
+                <img src="https://dtcpass.delhi.gov.in/images/DTC1.png" alt="Logo">
+                <h1>Delhi Transport Corporation</h1>
+            </div>
+            <nav class="header">
+                <ul style="display: flex; flex-wrap: nowrap; justify-content: left; gap: 20px;">
+                    <li class="active" style="list-style: none;"><a href="#" style="color: #00FF00; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#FF0000'" onmouseout="this.style.color='#00FF00'"><b>HOME</b></a></li>
+                    <li style="list-style: none;"><a href="#" style="color: #00FF00; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#FF0000'" onmouseout="this.style.color='#00FF00'"><b>APPLY FOR BUS PASS</b></a></li>
+                    <li style="list-style: none;"><a href="#" style="color: #00FF00; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#FF0000'" onmouseout="this.style.color='#00FF00'"><b>FAQs</b></a></li>
+                    <li style="list-style: none;"><a href="#" style="color: #00FF00; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#FF0000'" onmouseout="this.style.color='#00FF00'"><b>LOGIN</b></a></li>
+                    <li style="list-style: none;"><a href="#" style="color: #00FF00; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#FF0000'" onmouseout="this.style.color='#00FF00'"><b>PRICE CALCULATOR</b></a></li>
+                    <li style="list-style: none;"><a href="#" style="color: #00FF00; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#FF0000'" onmouseout="this.style.color='#00FF00'"><b>RE-GENERATE e-PASS</b></a></li>
+                    <li style="list-style: none;"><a href="#" style="color: #00FF00; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#FF0000'" onmouseout="this.style.color='#00FF00'"><b>APPLICATION STATUS</b></a></li>
+                    <li style="list-style: none;"><a href="#" style="color: #00FF00; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#FF0000'" onmouseout="this.style.color='#00FF00'"><b>DOWNLOAD</b></a></li>
+                    <li style="list-style: none;"><a href="#" style="color: #00FF00; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#FF0000'" onmouseout="this.style.color='#00FF00'"><b>CONTACT US</b></a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="form-container">
+            <div class="form-box">
+                <h2 class="form-title">Get Your e-BusPass</h2>
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label>Enter Your e-BusPass Number <span class="required">*</span></label>
+                        <input type="text" 
+                               placeholder="Enter Your e-BusPass Number" 
+                               required>
+                    </div>
+
+                    <div class="separator">------ OR ------</div>
+
+                    <div class="form-group">
+                        <label>Enter Mobile Number <span class="required">*</span></label>
+                        <input type="tel" 
+                               placeholder="Enter Mobile Number" 
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Enter Your DOB <span class="required">*</span></label>
+                        <input type="date" 
+                               placeholder="Enter Your DOB"
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Captcha <span class="required">*</span></label>
+                        <div class="captcha-container">
+                            <div class="captcha-image">
+                                <img src="data:image/png;base64,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"" alt="Captcha" style="background-color: white;">
+                            </div>
+                            <input type="text" 
+                                   placeholder="Type Captcha" 
+                                   required>
+                        </div>
+                    </div>
+
+                    <a href="https://sites.google.com/view/httpsdtcpass-delhi-gov-ingetep/home" class="submit-btn" style="display: inline-block; text-decoration: none;">SUBMIT</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            Copyright © - Delhi e-Governance Society 2024
+        </div>
+    </footer>
+</body>
+</html>
