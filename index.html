@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -413,6 +413,7 @@
             .header {
                 height: auto;
                 padding: 10px 0;
+                position: static;
             }
             
             .header img {
@@ -426,8 +427,8 @@
             
             /* Navigation adjustments */
             .nav {
-                position: relative;
-                top: 0;
+                position: static;
+                top: auto;
                 height: auto;
                 padding: 5px 0;
             }
@@ -601,3 +602,4 @@
     </footer>
 </body>
 </html>
+
